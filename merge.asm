@@ -39,10 +39,14 @@
 // m[26] to m[40] <- store whether the sub arrays referenced in m[10] to m[26]
 //                   are odd or even
 
-// Area 3 (Used to save temporary data e.g. during merge comparison):
-// m[41] <- 
+// Area 3 (Used to save temporary data e.g. during loops):
+// (DIVISION)
+// m[41] <- 2, we will always divide by 2
+// m[42] <- The number to be divided
+// m[43] <- Counts times the division has completed (end result is solution)
+// m[44] <- Whether input was odd (=0) or even (=1)
 
-// Initial setup to first level of tree
+// Initialisation for first level of tree, left side (m[2] to m[8])
 @2
 M=0
 @0
@@ -51,7 +55,6 @@ D=M
 M=D
 @7
 M=D
-// @4 - Division result
 @5
 M=0
 @6
@@ -60,10 +63,29 @@ M=1
 D=M
 @8
 M=D
+// We need to divide the input for m[4]
+// Initialise division by 2
+@2
+D=A
+@41
+M=D
 (DIVIDE) // Find the size of the left half and whether the input is odd or even
-
-
-
+// m[42] has to be filled before entering this 'function'
+@41
+D=M
+@42
+M=M-D
+@43
+M=M+1
+// Now, is m[42] <,= or > 0?
+@42
+D=M
+@DIVIDE
+D;JGT
+@ODD
+D;JLT
+@EVEN
+D;JEQ
 
 
 
